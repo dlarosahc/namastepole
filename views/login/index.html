@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Iniciar Sesión</title>
+</head>
+<body>
+    <nav id="navbar" class="fixed top-0 right-0 left-0 bg-purple-500 h-16"></nav>
+    <div class="pt-16 h-screen flex max-w-7xl mx-auto justify-around items-center px-4">
+        <div class="hidden lg:flex">
+          <img    src="/images/mainlogo.png" alt="Logo Namaste"> 
+        </div>
+        <form id="form" class="flex flex-col  gap-4 bg-slate-200 p-4 w-full md:w-2/4 rounded-lg text-md shadow-lg">   
+           
+           <div class="flex flex-col gap-2">
+               <label for="email-input" class="font-bold">Correo Electrónico</label>
+               <input type="email" id="email-input" name="email-input" placeholder="ejemplo@correoelectronico.com" class="rounded-lg p2 bg-slate-100 focus:outline-none">
+               <p class="text-xs"></p>
+           </div>
+           
+           <div class="flex flex-col gap-2">
+               <label for="password-input" class="font-bold">Contraseña</label>
+               <input type="password" id="password-input" name="password" placeholder="Ingresa una Contraseña" class="rounded-lg p2 bg-slate-100 focus:outline-none outline-green-700">
+               <p id="error-text" class="text-sm text-red-700"></p>
+           </div> 
+
+           <button id="form-btn" class="py-2 px-4 bg-purple-500 rounded-lg font-bold text-white hover:border-transparent hover:text-teal-500 hover:bg-white disabled:hover:bg-purple-500 hover:text-white">Iniciar Sesión</button>
+       
+        </form>
+        
+   </div>
+    <script src="index.js"></script>
+    <script src="../components/nav.js"></script>  
+</body>
+</html>
