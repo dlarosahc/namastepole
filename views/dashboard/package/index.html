@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Paquetes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link   
+   href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"   
+   rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Montserrat', sans-serif;
+      }
+    </style>
+    
+</head>
+<body>
+    <div id="side-bar"> </div>
+    <div id="notification" class="fixed top-20 left-0 right-0"></div>
+    <div class="p-4 md:ml-64 h-screen flex flex-col max-w-7xl mx-auto justify-around items-center px-6">
+        <div id="payment" class="transition ease-in-out  hidden p-6 overflow-auto  text-white shadow-lg bg-violet-400 fixed top-14 right-30 left-30 bottom-10 rounded-lg  justify-around items-center flex-col gap-2 w-11/12  md:w-2/4">
+            <div class="container mx-auto justify-center flex flex-col">
+                <h2 class="text-2xl font-bold mb-4">Aquí iría el nombre del Paquete</h2>
+              
+                <div class=" flex flex-col  overflow-auto md:grid md:grid-cols-2 gap-4">
+                  <div class="flex flex-col " >
+                    <label class="block text-sm font-medium text-white">
+                      Añadir metodo de pago
+                    </label>
+                    
+                    <select id="select-method" class="mt-1 block w-full pl-3 pr-10 py-2 text-black border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                      <option value="none" selected disabled class="text-black">Elige una opción</option>
+                      <option value="binance" class="text-black">Binance</option>
+                      <option value="efectivo" class="text-black">Efectivo</option>
+                      <option value="pagomovil" class="text-black">Pago Móvil</option>
+                    </select>
+
+                <div class="max-h-96 flex flex-col p-4 gap-4  overflow-auto w-11/12">   
+                    <form id="BinancePay" class="hidden transition-shadow border border-gray-200 rounded-md ease-in flex-col text-white top-16   p-4">
+                      <div class="flex justify-between items-center">  
+                      <h3 class="text-lg  font-bold  ">Binance</h3>
+                      
+                     </div>
+                        <div class="space-y-4">
+                          <div>
+                            <label for="sentFromEmail" class="block text-sm">
+                              Email de donde se envió el pago
+                            </label>
+                            <input type="email" id="sentFromEmail" name="sentFromEmail" class="pay-ref text-black mt-1 p-2 w-full rounded-md border-gray-700 focus:border-indigo-500" placeholder="Ingrese el email de envío">
+                          </div>
+                      
+                          <div>
+                            <label for="amount-input" class="block text-sm">
+                              Monto *
+                            </label>
+                            <input  id="amount-input" name="amount"  max="200" class="amount-pay text-black mt-1 p-2 w-full rounded-md border-gray-700 focus:border-indigo-500" placeholder="Ingrese el monto">
+                            <p class="text-xs text-white">El monto debe estar en dolares</p>
+                          </div>
+                        </div>
+                      
+                        <button class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                          Realizar Pago
+                        </button>
+                     
+                      </form>
+                      <form id="PagoMovilPay" class="hidden transition-shadow border border-gray-200 rounded-md ease-in flex-col text-white top-16  p-4">
+                        <div class="flex justify-between items-center">  
+                          <h3 class="text-lg  font-bold  ">Pago Móvil</h3>
+                         </div>
+                      
+                        <div class="space-y-4">
+                          <div>
+                            <label for="sentFromEmail" class="block text-sm">
+                              Numero de Referencia*
+                            </label>
+                            <input  id="amount-input" name="amount"  max="200" class="amount-pay text-black mt-1 p-2 w-full rounded-md border-gray-700 focus:border-indigo-500" placeholder="Referencia de Pago">
+                            <p class="text-xs text-white">Últimos 4 digitos de la referencia</p>
+                        </div>
+                      
+                          <div>
+                            <label for="amount-input" class="block text-sm">
+                              Monto *
+                            </label>
+                            <input  id="amount-input" name="amount"  max="200" class="amount-pay text-black mt-1 p-2 w-full rounded-md border-gray-700 focus:border-indigo-500" placeholder="Ingrese el monto">
+                            <p class="text-xs text-white">El monto debe estar en dolares</p>
+                          </div>
+                        </div>
+                      
+                        <button class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                          Realizar Pago
+                        </button>
+                     
+                      </form>
+                      <form id="CashPay" class="hidden transition-shadow border border-gray-200 rounded-md ease-in flex-col text-white top-16  p-4">
+                        <div class="flex justify-between items-center">  
+                          <h3 class="text-lg  font-bold  ">Efectivo</h3>
+                         </div>
+                      
+                        <div class="space-y-4">
+                         <div>
+                            <label for="amount-input" class="block text-sm">
+                              Monto *
+                            </label>
+                            <input  id="amount-input" name="amount" required step="0.01" max="200" class="amount-pay text-black mt-1 p-2 w-full rounded-md border-gray-700 focus:border-indigo-500" placeholder="Ingrese el monto">
+                            <p class="text-xs text-white">El monto debe estar en dolares</p>
+                          </div>
+                        </div>
+                      
+                        <button class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                          Realizar Pago
+                        </button>
+                     
+                      </form>
+                </div>     
+                    </div>
+                  <div>
+                    <h3 class="text-xl font-bold mb-2">Métodos de pago</h3>
+                    <div class="flex justify-between items-center mb-4  ">
+                      <div class="border-solid border-r-2 px-2">
+                        <p>Monto en Bs.</p>
+                        <p class="text-md font-bold">Aqui iria el monto en bs</p>
+                      </div>
+
+                      <div>
+                        <p class="px-2">Fecha</p>
+                        
+                        <input id="buy-date" type="date" class="text-white focus:border-transparent bg-transparent  px-2">
+                      </div>
+                      
+                      
+                    </div>
+              
+                    <div class="border border-gray-200 rounded-md p-4">
+                      <h4 class="text-lg font-bold mb-2">Binance</h4>
+                      <p>rosaangelican05@gmail.com</p>
+                      
+                    </div>
+              
+                    <div class="border border-gray-200 rounded-md p-4 mt-4">
+                      <h4 class="text-lg font-bold mb-2">Provincial</h4>
+                      <p>Pago móvil</p>
+                      <p>04149203270</p>
+                      <p>V20638864</p>
+                     
+                    </div>
+              
+                    <div class="flex justify-end mt-4 font-bold py-2 px-4 rounded">
+                      <button id="cancel-pay-btn" class="bg-red-700 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">Cancelar</button>
+                    
+                    
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+           </div>     
+         <form id="form" class="hidden flex-col w-full md:w-2/4  gap-4 bg-slate-200 p-4 rounded-lg text-md shadow-lg">
+           
+            <div class="flex flex-col gap-2">
+            <label for="name-input" class="font-bold">Nombre del paquete</label>
+            <input type="text" id="name-input" name="name-input"  class="rounded-lg p2 bg-slate-100 focus:outline-none ">
+            <p class="hidden text-xs">Nombre y Apellido deben estar con la primera letra en mayuscula</p>
+            </div>     
+            
+            <div class="flex flex-col gap-2">
+                <label for="description-input" class="font-bold">Descripcion del Paquete</label>
+                <input  id="description-input" name="description-input" class="rounded-lg p2 bg-slate-100 focus:outline-none">
+                <p class=" text-xs hidden">Nombre y Apellido deben estar con la primera letra en mayuscula</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="price-input" class="font-bold">Costo del paquete $</label>
+                <input type="text" id="price-input" name="price-input"  class="rounded-lg p2 bg-slate-100 focus:outline-none">
+                <p class="text-xs hidden">Numero Telefonico Venezolano</p>
+            </div>
+            
+            <div class="flex flex-col gap-2">
+                <label for="quantity-input" class="font-bold">Cantidad de clases del paquete</label>
+                <input  id="quantity-input" name="quantity-input" class="rounded-lg p2 bg-slate-100 focus:outline-none outline-green-700">
+                <p class="text-xs hidden">Nombre y Apellido deben estar con la primera letra en mayuscula</p>
+            </div> 
+            <button  id="form-btn" class=" disabled:opacity-50 disabled:cursor-not-allowed py-2 px-4 bg-violet-400 rounded-lg font-bold text-white hover:border-transparent hover:text-teal-500 hover:bg-white">Crear Paquete</button>
+         </form>
+
+         <div id="availables-packages">
+            <ul id="packages-list" class="flex  flex-col justify-center  md:grid md:grid-cols-3 px-6 py-6 gap-4">
+             
+            </ul>
+
+            
+           
+         </div>
+
+    </div>   
+
+    <script src="../../components/sidebar.js"></script>
+    <script type="module" src="/components/notification.js"></script>   
+    <script type="module" src="index.js"></script> 
+</body>
+</html>
+

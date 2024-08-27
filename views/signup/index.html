@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Registro</title>
+</head>
+<body>
+    <div hidden id="preloader" class="fixed top-0 left-0 right-0 bottom-0 bg-white z-50  flex justify-center items-center">
+        <img class="animate-pulse h-40 w-50" src="/images/lotuslogo.png" alt="">
+      </div>
+    <nav id="navbar" class="fixed top-0 right-0 left-0 bg-violet-400 h-16"></nav>
+
+    <div id="notification" class="fixed top-20 left-0 right-0">
+
+    </div>
+
+    <div class="pt-16 h-screen flex max-w-7xl mx-auto justify-around items-center px-4">
+         <div class="hidden lg:flex">
+           <img    src="/images/mainlogo.png" alt="Logo Namaste"> 
+         </div>
+         <form id="form" class="flex flex-col w-full md:w-2/4  gap-4 bg-slate-200 p-4 rounded-lg text-md shadow-lg">
+            <div class="flex flex-col gap-2">
+                <label for="idNumber-input" class="font-bold">Documento</span></label>
+                <div class="flex flex-row gap-2">
+                <select  class="rounded-lg p2 bg-slate-100 focus:outline-none" name="id-type" id="select-id">
+                    <option selected disabled value=""></option>
+                    <option value="V">V-</option>
+                    <option value="E">E-</option>
+                    <option value="P">P-</option>
+                </select>
+                <input disabled  type="text" id="idNumber-input" name="idNumber-input" placeholder="Nro. de documento" class="rounded-lg p2 bg-slate-100 focus:outline-none size-full disabled:opacity-50">
+                </div>    
+                <p class="hidden text-xs">Ingrese un numero de documento como cedula de identidad o pasaporte</p>
+            </div> 
+
+            <div class="flex flex-col gap-2">
+            <label for="name-input" class="font-bold">Nombre</span></label>
+            <input type="text" id="name-input" name="name-input" placeholder="Nombre y Apellido" class="rounded-lg p2 bg-slate-100 focus:outline-none ">
+            <p class=" text-xs">Nombre y Apellido deben estar con la primera letra en mayusculas <span class="text-red-500">*</span></p>
+            </div>     
+            
+            <div class="flex flex-col gap-2">
+                <label for="email-input" class="font-bold">Correo</label>
+                <input type="email" id="email-input" name="email-input" placeholder="ejemplo@correoelectronico.com" class="rounded-lg p2 bg-slate-100 focus:outline-none">
+                <p class="text-xs hidden ">Nombre y Apellido deben estar con la primera letra en mayuscula</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="phone-input" class="font-bold">Numero Telefonico</label>
+                <input type="text" id="phone-input" name="phone-input" placeholder="04141234567" class="rounded-lg p2 bg-slate-100 focus:outline-none">
+                <p class="text-xs">Numero Telefonico Venezolano, sin guiones, puntos o separacion <span class="text-red-500">*</span></p>
+            </div>
+            
+            <div class="flex flex-col gap-2">
+                <label for="password-input" class="font-bold">Contraseña</label>
+                <input type="password" id="password-input" name="password" placeholder="Ingresa una Contraseña" class="rounded-lg p2 bg-slate-100 focus:outline-none outline-green-700">
+                <p class="text-xs">La contraseña debe tener minimo 8 caracteres con una letra mayúscula, un numero y un carácter especial <span class="text-red-500">*</span></p>
+            </div> 
+            <div class="flex flex-col gap-2">
+                <label for="match-input" class="font-bold">Confirmar Contraseña</label>
+                <input type="password" id="match-input" name="match-input" placeholder="Verifica tu contraseña" class="rounded-lg p2 bg-slate-100 focus:outline-none">
+                <p class="text-xs">Ambas contraseñas deben coincidir <span class="text-red-500">*</span></p>
+            </div> 
+            <!-- <div class="flex flex-col gap-2">
+                <label for="birthdate-input" class="font-bold">Fecha de Nacimiento</label>
+                <input type="date" id="birthdate-input" name="birthdate-input" placeholder="Verifica tu contraseña" class="rounded-lg p2 bg-slate-100 focus:outline-none">
+            </div>  -->
+
+            <button disabled id="form-btn" class=" disabled:opacity-50 disabled:cursor-not-allowed py-2 px-4 bg-violet-400 rounded-lg font-bold text-white hover:border-transparent hover:text-violet-400 hover:bg-white">Registrar</button>
+         </form>
+
+         
+         
+    </div>
+    
+   
+    <script src="../components/nav.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="module" src="../components/notification.js"></script>
+</body>
+</html>
