@@ -331,7 +331,8 @@ packagesList.addEventListener('click', async e => {
         })
         
     } catch (error) {
-        window.location.pathname = '/login'
+        console.log(error);
+        
     }
     
     })();
