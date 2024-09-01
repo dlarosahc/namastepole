@@ -17,6 +17,13 @@ const createSideBarDashboard = () => {
    <aside id="default-sidebar" class="showSideBar fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full md:translate-x-0" aria-label="Sidebar">
       
    <div class="flex flex-col h-full px-3 py-4 overflow-y-auto bg-violet-400  gap-4">
+   <div class="flex justify-end pr-4 md:hidden"> 
+   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="close-icon size-6 text-white   cursor-pointer">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+  </svg>
+   </div>
+   
+
          <div class="flex justify-center">
          <img class="w-32 h-25" src="/images/mainlogonegative.png" alt="">
       </div>
@@ -86,8 +93,19 @@ const createSideBarDashboard = () => {
 };
 
 createSideBarDashboard();
-const closeBtn = sideBar.children[0].children[1].children[0].children[1].children[5].children[0];
+const closeBtn = sideBar.children[0].children[1].children[0].children[2].children[5].children[0];
+
 const sideBtn = sideBar.children[0].children[0];
+
+const closeSideBar = sideBar.children[0].children[1].children[0].children[0].children[0];
+
+closeSideBar.addEventListener('click', e => {
+   const menu = sideBar.children[0].children[1];
+    menu.classList.add('-tranlate-x-full');
+    menu.classList.remove('translate-x-0');
+    console.log(menu);
+   
+})
 
 sideBtn.addEventListener('click', e => {
    if (sideBtn){
@@ -101,6 +119,8 @@ sideBtn.addEventListener('click', e => {
    }
 
 });
+
+
 
 closeBtn.addEventListener('click', async e => {
   try {

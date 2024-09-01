@@ -8,7 +8,7 @@ const profileUser = document.querySelector('#profile');
         
         const payments = data.payments;
         console.log(data.payments);
-        const activePayment = payments.find(({ approved }) => approved === true );
+        const activePayment = payments.find(({ approved, classQuantity }) => approved === true && classQuantity > 0 );
         console.log(activePayment);
         console.log(payments.length);
         
@@ -18,7 +18,7 @@ const profileUser = document.querySelector('#profile');
             
             const profileCard = document.createElement('div');
 
-            if (payments.length === 0) {
+            if (payments.length === 0 || !activePayment) {
                 profileCard.innerHTML = `
              <div class="bg-white top-6 w-full overflow-hidden shadow rounded-lg border">
         <div class="px-4 py-5 sm:px-6">
@@ -42,7 +42,7 @@ const profileUser = document.querySelector('#profile');
                 </div>
                 <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Full name
+                        Nombre
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         ${data.name}
@@ -50,7 +50,7 @@ const profileUser = document.querySelector('#profile');
                 </div>
                 <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Email address
+                        E-mail
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         ${data.email}
@@ -58,7 +58,7 @@ const profileUser = document.querySelector('#profile');
                 </div>
                 <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Phone number
+                        Teléfono
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         ${data.phone}
@@ -105,7 +105,7 @@ const profileUser = document.querySelector('#profile');
                 </div>
                 <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Full name
+                        Nombre
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         ${data.name}
@@ -113,7 +113,7 @@ const profileUser = document.querySelector('#profile');
                 </div>
                 <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Email address
+                        E-Mail
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         ${data.email}
@@ -121,7 +121,7 @@ const profileUser = document.querySelector('#profile');
                 </div>
                 <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Phone number
+                        Teléfono
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         ${data.phone}
@@ -232,8 +232,8 @@ const profileUser = document.querySelector('#profile');
     
         
     } catch (error) {
-        // window.location.pathname = '/login'
         console.log(error);
+        window.location.pathname = '/login'
         
     }
     

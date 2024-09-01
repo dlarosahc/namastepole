@@ -819,8 +819,8 @@ video {
   height: 1.5rem;
 }
 
-.h-60 {
-  height: 15rem;
+.h-72 {
+  height: 18rem;
 }
 
 .h-8 {
@@ -857,10 +857,6 @@ video {
 
 .w-32 {
   width: 8rem;
-}
-
-.w-48 {
-  width: 12rem;
 }
 
 .w-5 {
@@ -968,6 +964,10 @@ video {
 
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.cursor-default {
+  cursor: default;
 }
 
 .cursor-pointer {
@@ -1940,6 +1940,11 @@ video {
   .lg\:py-6 {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
+  }
+
+  .lg\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 }
 

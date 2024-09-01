@@ -104,7 +104,7 @@ scheduleSection.addEventListener('click', async e => {
     scheduleForm.children[0].children[0].innerHTML = formTitle.innerHTML;
     scheduleForm.children[0].children[1].innerHTML = formTime.innerHTML;
     const scheduleId = e.target.closest('.schedule-btn').parentElement.parentElement.parentElement.parentElement.id;
-    const activeStudents = data.filter(({ approved }) => approved === true );
+    const activeStudents = data.filter(({ approved, classQuantity }) => approved === true && classQuantity > 0 );
     console.log(activeStudents);
     
     

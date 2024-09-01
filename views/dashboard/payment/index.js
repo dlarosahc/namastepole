@@ -11,6 +11,8 @@ let userLoggedIn = null;
 
     if (userLoggedIn.rol === 'client') {
       paymentsTable.children[0].children[0].children[0].classList.add('hidden');
+      paymentsTable.children[0].children[0].children[2].classList.add('hidden');
+      paymentsTable.children[0].children[0].children[3].classList.add('hidden');
       paymentsTable.children[0].children[0].children[8].classList.add('hidden');
       searchInput.classList.add('hidden');
       console.log(searchInput);
@@ -74,10 +76,21 @@ paymentsContent.addEventListener('click', async e => {
         const { data } = await axios.get('/api/payments', {
             withCredentials: true
         });
+
+         // Ordenar pagos por fecha (descendente - más reciente primero)
+         data.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        if (data.length === 0) {
+            // No hay pagos registrados
+            const tableItem = document.createElement('div');
+            tableItem.classList.add = ('flex', 'justify-center', 'items-center')
+            tableItem.innerHTML = '<p class="text-center text-gray-500 font-medium">No hay pagos registrados.</p>';
+            titleClient.append(tableItem);
+          } else {
         data.forEach(payments => {
             const tableItem = document.createElement('tr');
             tableItem.id = payments.id
-            tableItem.classList.add('w-full',  'text-sd', 'text-left', 'rtl:text-right', 'text-gray-500', 'overflow-x-auto');
+            tableItem.classList.add('w-full',  'text-sd', 'text-center', 'rtl:text-right', 'text-gray-500', 'overflow-x-auto');
             tableItem.innerHTML = `
              ${userLoggedIn?.rol === 'admin'? (
                                 `<tr class="bg-white border-b">
@@ -126,12 +139,8 @@ paymentsContent.addEventListener('click', async e => {
                 <td class="px-6 py-4">
                     ${payments.date}
                 </td>
-                <td class="px-6 py-4">
-                    ${payments.user.idNumber}
-                </td>
-                <td class="px-6 py-4">
-                    ${payments.user.name}
-                </td>
+                
+                
                 <td class="px-6 py-4">
                     ${payments.package.name}
                 </td>
@@ -171,10 +180,11 @@ paymentsContent.addEventListener('click', async e => {
             
             paymentsContent.append(tableItem);
         });
+    };
         
     } catch (error) {
-        // window.location.pathname = '/login'
         console.log(error);
+        window.location.pathname = '/login'
         
     }
     

@@ -121,9 +121,38 @@ packagesList.addEventListener('click', async e => {
         
         const packageId = selectedPackage.id
         const packageName = selectedPackage.children[0].children[0].children[0]; 
-        const packagePrice = selectedPackage.children[0].children[2].children[1];
-     
+        const packagePrice = parseInt(selectedPackage.children[0].children[2].childNodes[1].textContent);
+        const bsAmount = payment.children[0].children[1].children[1].children[1].children[0].children[1];
         
+        
+        
+        const getDollar = async () => {
+            try {
+                bsAmount.innerHTML = `
+                <p class="text-md animate-pulse font-bold">Cargando...</p>
+                
+
+                `;
+              const response = await fetch('https://venecodollar.vercel.app/api/v2/dollar/entity?name=D%C3%B3lar%20Monitor',)
+              if (response){
+                const dollar = await response.json()
+                const dollarPrice = dollar.Data.info.dollar;
+                console.log(dollarPrice);
+                const packagePriceBs = dollarPrice * packagePrice;
+                const formattedPriceBs = packagePriceBs.toFixed(2);
+                bsAmount.innerHTML = `<p class="text-md font-bold">${formattedPriceBs}</p>`;
+                
+                
+                
+                
+              }
+            } catch (error) {
+              console.error(error.message)
+            }
+          }
+          getDollar();
+         
+          
         
         
        payment.children[0].children[0].innerHTML = packageName.innerHTML;
@@ -143,12 +172,21 @@ packagesList.addEventListener('click', async e => {
             
             binanceForm.addEventListener('submit', async e => {
                 e.preventDefault();
+                const formBtn = binanceForm.children[2];
+                formBtn.innerHTML = `
+                <div role="status">
+                <p class="animate-pulse">Procesando pago...</p>
+    
+                </div>`;
+                
+                
                 try {
                     const newPayment = {
                         date: buyDate.value,
                         method: selectedMethod,
                         ref: binanceForm.children[1].children[0].children[1].value,
-                        amount: parseInt(binanceForm.children[1].children[1].children[1].value),
+                        classQuantity: parseInt(classQuantitySelected),
+                        amount: parseFloat(binanceForm.children[1].children[1].children[1].value),
                         package: packageId,
                        }
     
@@ -184,12 +222,20 @@ packagesList.addEventListener('click', async e => {
 
             pagoMovForm.addEventListener('submit', async e => {
                 e.preventDefault();
+                const formBtn = pagoMovForm.children[2];
+                formBtn.innerHTML = `
+                <div role="status">
+                <p class="animate-pulse">Procesando pago...</p>
+    
+                </div>`;
+                
                 try {
                     const newPayment = {
                         date: buyDate.value,
                         method: selectedMethod,
                         ref: pagoMovForm.children[1].children[0].children[1].value,
-                        amount: parseInt(pagoMovForm.children[1].children[1].children[1].value),
+                        classQuantity: parseInt(classQuantitySelected),
+                        amount: parseFloat(pagoMovForm.children[1].children[1].children[1].value),
                         package: packageId,
                        }
     
@@ -227,13 +273,19 @@ packagesList.addEventListener('click', async e => {
 
             cashForm.addEventListener('submit', async e => {
                 e.preventDefault();
+                const formBtn = cashForm.children[2];
+                formBtn.innerHTML = `
+                <div role="status">
+                <p class="animate-pulse">Procesando pago...</p>
+    
+                </div>`;
                 try {
                     const newPayment = {
                         date: buyDate.value,
                         method: selectedMethod,
                         ref: 'No',
                         classQuantity: parseInt(classQuantitySelected),
-                        amount: parseInt(cashForm.children[1].children[0].children[1].value),
+                        amount: parseFloat(cashForm.children[1].children[0].children[1].value),
                         package: packageId,
                        }
     
@@ -294,8 +346,9 @@ packagesList.addEventListener('click', async e => {
         const { data } = await axios.get('/api/packages', {
             withCredentials: true
         });
+         console.log(userLoggedIn);
         data.forEach(packages => {
-            console.log(userLoggedIn);
+           
             
             const listItem = document.createElement('li');
             listItem.id = packages.id
@@ -332,6 +385,8 @@ packagesList.addEventListener('click', async e => {
         
     } catch (error) {
         console.log(error);
+        
+        window.location.pathname = "/login";
         
     }
     
