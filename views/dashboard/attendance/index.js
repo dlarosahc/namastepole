@@ -1,5 +1,7 @@
 const classesContent = document.querySelector('#classes-content');
 const attendanceHead = document.querySelector('#attendance-head');
+const titleClient = document.querySelector('#title-client');
+const searchInput = document.querySelector('#search-input');
 
 
 let userLoggedIn = null;
@@ -10,6 +12,7 @@ let userLoggedIn = null;
     if(userLoggedIn.rol === 'client'){
         attendanceHead.children[0].children[1].classList.remove('flex');
         attendanceHead.children[0].children[1].classList.add('hidden');
+        searchInput.classList.add('hidden');
     }
     
     
@@ -27,7 +30,14 @@ let userLoggedIn = null;
         const { data } = await axios.get('/api/class/two', {
             withCredentials: true
         });
-      console.log(data);
+      if (data.lenght === 0) {
+        const tableItem = document.createElement('div');
+        tableItem.classList.add = ('flex', 'justify-center', 'items-center')
+        tableItem.innerHTML = '<p class="text-center text-gray-500 font-medium">Sin asistencias registradas.</p>';
+        titleClient.append(tableItem);
+        
+      }
+      
       data.sort((a, b) => new Date(b.date) - new Date(a.date));
       
      if (userLoggedIn.rol === 'client'){

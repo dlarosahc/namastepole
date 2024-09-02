@@ -77,16 +77,17 @@ paymentsContent.addEventListener('click', async e => {
             withCredentials: true
         });
 
-         // Ordenar pagos por fecha (descendente - más reciente primero)
-         data.sort((a, b) => new Date(b.date) - new Date(a.date));
+         
 
-        if (data.length === 0) {
+        if (!data.length) {
             // No hay pagos registrados
             const tableItem = document.createElement('div');
             tableItem.classList.add = ('flex', 'justify-center', 'items-center')
-            tableItem.innerHTML = '<p class="text-center text-gray-500 font-medium">No hay pagos registrados.</p>';
+            tableItem.innerHTML = '<p class="text-center text-gray-500 font-medium">Sin pagos registrados.</p>';
             titleClient.append(tableItem);
           } else {
+            // Ordenar pagos por fecha (descendente - más reciente primero)
+         data.sort((a, b) => new Date(b.date) - new Date(a.date));
         data.forEach(payments => {
             const tableItem = document.createElement('tr');
             tableItem.id = payments.id
