@@ -38,12 +38,13 @@ let userLoggedIn = null;
         
       }
       
-      data.sort((a, b) => new Date(b.date) - new Date(a.date));
+     
       
      if (userLoggedIn.rol === 'client'){
         const userName = userLoggedIn.name
         const userClass = data.filter(({ name }) => name === userName);
         console.log(userClass);
+        userClass.sort((a, b) => new Date(b.date) - new Date(a.date));
         userClass.forEach(data => {
             const tableItem = document.createElement('tr');
             tableItem.classList.add('w-full',  'text-sd', 'text-center', 'rtl:text-right', 'text-gray-500', 'overflow-x-auto');
@@ -86,7 +87,7 @@ let userLoggedIn = null;
         
         
      } else if (userLoggedIn.rol === 'admin'){
-        
+        data.sort((a, b) => new Date(b.date) - new Date(a.date));
         data.forEach(data => {
             const tableItem = document.createElement('tr');
             tableItem.classList.add('w-full',  'text-sd', 'text-center', 'rtl:text-right', 'text-gray-500', 'overflow-x-auto');

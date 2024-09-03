@@ -14,7 +14,7 @@ const createSideBarDashboard = () => {
    
    <!-- Version Escritorio -->
    
-   <aside id="default-sidebar" class="showSideBar fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full md:translate-x-0" aria-label="Sidebar">
+   <aside id="default-sidebar" class="showSideBar  duration-500 ease-in-out fixed top-0 left-0 z-40 w-64 h-screen transition -translate-x-full md:translate-x-0" aria-label="Sidebar">
       
    <div class="flex flex-col h-full px-3 py-4 overflow-y-auto bg-violet-400  gap-4">
    <div class="flex justify-end pr-4 md:hidden"> 

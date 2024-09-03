@@ -106,6 +106,14 @@ scheduleSection.addEventListener('click', async e => {
     const scheduleId = e.target.closest('.schedule-btn').parentElement.parentElement.parentElement.parentElement.id;
     const activeStudents = data.filter(({ approved, classQuantity }) => approved === true && classQuantity > 0 );
     console.log(activeStudents);
+
+    const closeBtn = scheduleForm.children[2];
+    
+    closeBtn.addEventListener('click', e => {
+      
+      scheduleForm.classList.add('hidden');
+      scheduleForm.classList.remove('flex');
+    })
     
     
     
@@ -192,6 +200,15 @@ scheduleSection.addEventListener('click', async e => {
     scheduleAttendance.children[0].children[0].innerHTML = title.innerHTML;
     scheduleAttendance.children[0].children[1].innerHTML = time.innerHTML;
     scheduleAttendance.children[0].children[2].value = dateNow;
+    const closeBtn = scheduleAttendance.children[2];
+    
+    closeBtn.addEventListener('click', e => {
+      scheduleAttendance.classList.add('hidden');
+      scheduleAttendance.classList.remove('flex');
+    })
+
+    
+    
     
     const scheduleId = e.target.closest('.see-btn').parentElement.parentElement.parentElement.parentElement.id;
     
