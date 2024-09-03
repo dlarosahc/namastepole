@@ -131,7 +131,7 @@ let userLoggedIn = null;
     } 
     } catch (error) {
          console.log(error);
-         window.location.pathname = '/login'
+         //window.location.pathname = '/login'
     }
   
         

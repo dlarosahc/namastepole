@@ -4,7 +4,7 @@ export const createNotification = (isError, message) => {
     
     if (isError){
         div.innerHTML = `
-        <div class="flex fixed left-4 justify-end md:ml-64 max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-neutral-800 dark:border-neutral-700" role="alert" tabindex="-1" aria-labelledby="hs-toast-error-example-label">
+        <div class="flex fixed left-4 justify-end md:ml-64 max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg" role="alert" tabindex="-1" aria-labelledby="hs-toast-error-example-label">
     <div class="flex p-4">
       <div class="shrink-0">
         <svg class="shrink-0 size-4 text-red-500 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -12,7 +12,7 @@ export const createNotification = (isError, message) => {
         </svg>
       </div>
       <div class="ms-3">
-        <p id="hs-toast-error-example-label" class=" text-sm text-gray-700 dark:text-neutral-400">
+        <p id="hs-toast-error-example-label" class=" text-sm text-gray-700">
           ${message}.
         </p>
       </div>
@@ -21,8 +21,8 @@ export const createNotification = (isError, message) => {
     `
     } else {
         div.innerHTML = `
-        <div id="toast-success" class="flex fixed left-4 md:ml-64 justify-end items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
-        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+        <div id="toast-success" class="flex fixed left-4 md:ml-64 justify-end items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow" role="alert">
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
         </svg>
