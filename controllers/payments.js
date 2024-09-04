@@ -66,7 +66,7 @@ paymentsRouter.post('/', async (request, response) => {
       from: process.env.EMAIL_USER, // sender address
       to: process.env.EMAIL_USER, // list of receivers
       subject: "Nuevo Pago recibido", // Subject line
-      html: `<p>Nuevo pago recibido de ${user.name} fecha ${date} por el monto de ${amount}$</p>`, // html body
+      html: `<p>Nuevo pago recibido de ${user.name} fecha ${date} por el monto de ${amount}</p>`, // html body
     });
     return response.status(201).json('Su compra está siendo procesada');
    });

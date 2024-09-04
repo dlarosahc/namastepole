@@ -121,7 +121,7 @@ paymentsContent.addEventListener('click', async e => {
                     ${payments.ref}
                 </td>
                 <td class="text-center px-6 py-4">
-                    ${payments.amount}$
+                    ${payments.amount}
                 </td>
                 <td class="flex justify-center px-6 py-4">
                    <button class="check-btn">
@@ -152,7 +152,7 @@ paymentsContent.addEventListener('click', async e => {
                     ${payments.ref}
                 </td>
                 <td class="text-center px-6 py-4">
-                    ${payments.amount}$
+                    ${payments.amount}
                 </td>
                 
                 <td class="text-center px-6 py-4">
