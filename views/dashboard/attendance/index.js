@@ -36,7 +36,7 @@ let userLoggedIn = null;
         tableItem.innerHTML = '<p class="text-center text-gray-500 font-medium">Sin asistencias registradas.</p>';
         titleClient.append(tableItem);
         
-      }
+      } else { 
       
      
       
@@ -130,7 +130,8 @@ let userLoggedIn = null;
         });
 
     } 
-    } catch (error) {
+}    
+} catch (error) {
          console.log(error);
          //window.location.pathname = '/login'
     }

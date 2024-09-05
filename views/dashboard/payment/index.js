@@ -16,13 +16,15 @@ let userLoggedIn = null;
       paymentsTable.children[0].children[0].children[8].classList.add('hidden');
       searchInput.classList.add('hidden');
       console.log(searchInput);
-      titleAdmin.classList.add('hidden');
+      titleClient.classList.add('flex');
+      titleClient.classList.remove('hidden');
       
     };
 
     if (userLoggedIn.rol === 'admin') {
         
-        titleClient.classList.add('hidden');
+        titleAdmin.classList.add('flex');
+        titleAdmin.classList.remove('hidden');
         
       };
 
@@ -185,7 +187,7 @@ paymentsContent.addEventListener('click', async e => {
         
     } catch (error) {
         console.log(error);
-        window.location.pathname = '/login'
+        //window.location.pathname = '/login'
         
     }
     
