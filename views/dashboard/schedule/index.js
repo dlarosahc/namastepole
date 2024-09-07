@@ -205,6 +205,7 @@ scheduleSection.addEventListener('click', async e => {
     closeBtn.addEventListener('click', e => {
       scheduleAttendance.classList.add('hidden');
       scheduleAttendance.classList.remove('flex');
+      location.reload();
     })
 
     

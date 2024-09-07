@@ -32,7 +32,7 @@ selectId.addEventListener('change', e => {
 
 //Regex Validations
 const ID_REGEX = /^[{1}[0-9]{6,8}$/;
-const NAME_REGEX = /^[A-Za-záéíóúñ]{2,}([\s][A-Za-záéíóúñ]{2,})+$/;
+const NAME_REGEX = /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]*(\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+\s*)*$/;
 const PHONE_REGEX = /^[0](412|212|424|426|414|416)[0-9]{7}$/;
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-!@#*$%^&()_.,])[a-zA-Z0-9!@#$%*^&()_.,-]{6,}$/;
@@ -52,6 +52,7 @@ let matchValidation = false;
 const validateInput = (input, validation) => {
    
     formBtn.disabled = idValidation && nameValidation && phoneValidation && emailValidation && passwordValidation && matchValidation ? false : true;
+    formBtn.classList.add('bg-violet-700')
 
     if(input.value === ''){
         input.classList.remove('focus:outline-green-500');
