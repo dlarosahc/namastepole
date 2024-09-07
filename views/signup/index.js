@@ -23,7 +23,7 @@ selectId.addEventListener('change', e => {
     const selectedOption = selectId.value;
     if (selectedOption !== '') {
       idNumberInput.disabled = false; 
-      selectId.classList.add('focus:outline-green-500');
+      selectId.classList.add('border-4','border-green-500');
     } else {
       idNumberInput.disabled = true; // Deshabilita el input
     }
@@ -32,7 +32,7 @@ selectId.addEventListener('change', e => {
 
 //Regex Validations
 const ID_REGEX = /^[{1}[0-9]{6,8}$/;
-const NAME_REGEX = /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]*(\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+\s*)*$/;
+const NAME_REGEX = /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+\s([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*)$/;
 const PHONE_REGEX = /^[0](412|212|424|426|414|416)[0-9]{7}$/;
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-!@#*$%^&()_.,])[a-zA-Z0-9!@#$%*^&()_.,-]{6,}$/;
@@ -52,17 +52,15 @@ let matchValidation = false;
 const validateInput = (input, validation) => {
    
     formBtn.disabled = idValidation && nameValidation && phoneValidation && emailValidation && passwordValidation && matchValidation ? false : true;
-    formBtn.classList.add('bg-violet-700')
 
     if(input.value === ''){
-        input.classList.remove('focus:outline-green-500');
-        input.classList.remove('focus:outline-red-500');
+        input.classList.remove('border-4', 'border-red-500', 'border-green-500');
     } else if (validation){
-        input.classList.add('focus:outline-green-500');
-        input.classList.remove('focus:outline-red-500')
+        input.classList.add('border-4', 'border-green-500');
+        input.classList.remove('border-red-500')
     } else {
-            input.classList.remove('focus:outline-green-500');
-            input.classList.add('focus:outline-red-500');
+            input.classList.remove('border-green-500');
+            input.classList.add('border-4', 'border-red-500');
         }
 }
 //Eventos
@@ -101,6 +99,8 @@ matchInput.addEventListener('input', e => {
 
 form.addEventListener('submit', async e => {
     e.preventDefault();
+    formBtn.classList.add('animate-pulse');
+    formBtn.innerText = 'Registrando...';
 
     try {
         const newUser = {
@@ -114,7 +114,7 @@ form.addEventListener('submit', async e => {
         createNotification(false, data);
         setTimeout(() => {
             notification.innerHTML = '';
-        }, 3000)
+        }, 3000);
         idNumberInput.value = '';
         nameInput.value = '';
         emailInput.value = '';
@@ -130,17 +130,22 @@ form.addEventListener('submit', async e => {
         passwordValidation = false;
         emailValidation = false;
         matchValidation = false;
-        idNumberInput.classList.remove('focus:outline-green-500');
-        nameInput.classList.remove('focus:outline-green-500');
-        emailInput.classList.remove('focus:outline-green-500');
-        phoneInput.classList.remove('focus:outline-green-500');
-        passwordInput.classList.remove('focus:outline-green-500');
-        matchInput.classList.remove('focus:outline-green-500');
+        selectId.classList.remove('border-4','border-green-500');
+        idNumberInput.classList.remove('border-4','border-green-500');
+        nameInput.classList.remove('border-4','border-green-500');
+        emailInput.classList.remove('border-4','border-green-500');
+        phoneInput.classList.remove('border-4','border-green-500');
+        passwordInput.classList.remove('border-4','border-green-500');
+        matchInput.classList.remove('border-4','border-green-500');
+        formBtn.classList.remove('animate-pulse');
+        formBtn.innerText = 'Registrar';
     } catch (error) {
         createNotification(true, error.response.data.error);
         setTimeout(() => {
             notification.innerHTML = '';
         }, 3000);
+        formBtn.classList.remove('animate-pulse');
+        formBtn.innerText = 'Registrar';
     }
 })
         
