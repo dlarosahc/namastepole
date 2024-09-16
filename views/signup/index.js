@@ -23,7 +23,7 @@ selectId.addEventListener('change', e => {
     const selectedOption = selectId.value;
     if (selectedOption !== '') {
       idNumberInput.disabled = false; 
-      selectId.classList.add('border-4','border-green-500');
+      selectId.classList.add('border-2','border-green-500');
     } else {
       idNumberInput.disabled = true; // Deshabilita el input
     }
@@ -54,13 +54,13 @@ const validateInput = (input, validation) => {
     formBtn.disabled = idValidation && nameValidation && phoneValidation && emailValidation && passwordValidation && matchValidation ? false : true;
 
     if(input.value === ''){
-        input.classList.remove('border-4', 'border-red-500', 'border-green-500');
+        input.classList.remove('border-2', 'border-red-500', 'border-green-500');
     } else if (validation){
-        input.classList.add('border-4', 'border-green-500');
+        input.classList.add('border-2', 'border-green-500');
         input.classList.remove('border-red-500')
     } else {
             input.classList.remove('border-green-500');
-            input.classList.add('border-4', 'border-red-500');
+            input.classList.add('border-2', 'border-red-500');
         }
 }
 //Eventos
@@ -130,13 +130,13 @@ form.addEventListener('submit', async e => {
         passwordValidation = false;
         emailValidation = false;
         matchValidation = false;
-        selectId.classList.remove('border-4','border-green-500');
-        idNumberInput.classList.remove('border-4','border-green-500');
-        nameInput.classList.remove('border-4','border-green-500');
-        emailInput.classList.remove('border-4','border-green-500');
-        phoneInput.classList.remove('border-4','border-green-500');
-        passwordInput.classList.remove('border-4','border-green-500');
-        matchInput.classList.remove('border-4','border-green-500');
+        selectId.classList.remove('border-2','border-green-500');
+        idNumberInput.classList.remove('border-2','border-green-500');
+        nameInput.classList.remove('border-2','border-green-500');
+        emailInput.classList.remove('border-2','border-green-500');
+        phoneInput.classList.remove('border-2','border-green-500');
+        passwordInput.classList.remove('border-2','border-green-500');
+        matchInput.classList.remove('border-2','border-green-500');
         formBtn.classList.remove('animate-pulse');
         formBtn.innerText = 'Registrar';
     } catch (error) {

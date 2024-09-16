@@ -96,6 +96,43 @@ classRouter.post('/', async (request, response) => {
     return response.status(201).json('Clase agendada exitosamente');
    });
 
+classRouter.delete('/:id', async (request, response) => {
+    try {
+      //const user = request.user;
+      const classId = request.params.id;
+      console.log(classId);
+      
+      const classSelected = await Class.findById(classId).populate('payments');
+      console.log(classSelected);
+      
+      if(!classSelected){
+        return response.status(404).json({ error: 'No se encontraron pagos' })
+      }
+      const paymentId = classSelected.payments._id; // ID del pago con que se reserva la clase
+  
+      // Eliminar el pago
+      await Class.findByIdAndDelete(classId);
+  
+      // Actualizar al usuario
+      const payment = await Payment.findById(paymentId);
+      payment.class = payment.class.filter(classes => classes.toString() !== classSelected.id.toString());
+      await payment.save();
+      return response.sendStatus(204);
+     
+    } catch (error) {
+      return response.status(500).json({ error: 'Error eliminando clase' })
+    }
+    
+    
+    
+    
+    
+    
+    
+     });   
+
+
+
 classRouter.patch("/:id/attended", async (request, response) => {
     
     

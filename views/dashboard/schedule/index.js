@@ -294,7 +294,11 @@ scheduleSection.addEventListener('click', async e => {
     };
 });
 
-//Aqui vamos a crear la logica para marcar la asistencia y cargar la clase
+  
+
+
+
+//Aqui vamos a crear la logica para marcar la asistencia, cargar la clase y eliminar en caso de que se requiera
 attendanceList.addEventListener('click', async e => {
   //Marcar asistencia 
   if(e.target.closest('.check-asist-btn')){
@@ -339,6 +343,15 @@ attendanceList.addEventListener('click', async e => {
     
 
   };
+
+  if(e.target.closest('.delete-asist-btn')){
+    const deleteBtn = e.target.closest('.delete-asist-btn');
+    const tr = deleteBtn.parentElement.parentElement;
+    console.log(tr.id);
+    
+    await axios.delete(`/api/class/${tr.id}`);
+    tr.remove();
+    }
 
 });
 
