@@ -10,6 +10,7 @@ const dayDate = document.querySelector('#day-date');
 const scheduleSection = document.querySelector('#schedule-section')
 const scheduleForm = document.querySelector('#schedule-form');
 const scheduleList = document.querySelector('#schedule-list');
+const filterScheduleList = document.querySelector('#filter-schedule-list');
 const inputScheduleDate = document.querySelector('#input-schedule-date');
 const scheduleAttendance = document.querySelector('#schedule-attendance');
 const attendanceList = document.querySelector('#attendance-list');
@@ -19,6 +20,10 @@ const dateNow1 = new Date();
 const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 const dayIndex = dateNow1.getDay();
 let day = daysOfWeek[dayIndex] ;
+const searchInput = document.querySelector('#search-input');
+
+
+
 
 console.log(dateNow1);
 inputDate.value = dateNow;
@@ -107,7 +112,9 @@ scheduleSection.addEventListener('click', async e => {
     const activeStudents = data.filter(({ approved, classQuantity }) => approved === true && classQuantity > 0 );
     console.log(activeStudents);
 
-    const closeBtn = scheduleForm.children[2];
+    const closeBtn = scheduleForm.children[3].children[0];
+    console.log(closeBtn);
+    
     
     closeBtn.addEventListener('click', e => {
       
@@ -140,10 +147,113 @@ scheduleSection.addEventListener('click', async e => {
                     </div>
       `
       scheduleList.append(listUser);
+
+      
     });
+     //Aqui el filtro
+
+     searchInput.addEventListener('input', async e => {
+      
+      const filtered = activeStudents.filter(payments => {
+        return payments.user.name
+          .toLowerCase()
+          .startsWith(searchInput.value.toLowerCase())
+      });
+      
+      if(searchInput.value === ''){
+        filterScheduleList.classList.add('hidden');
+        filterScheduleList.classList.remove('flex');
+        filterScheduleList.innerHTML = '';
+        scheduleList.classList.remove('hidden');
+        scheduleList.classList.add('flex');
+        
+      } else {
+        filterScheduleList.classList.remove('hidden');
+        filterScheduleList.classList.add('flex');
+        filterScheduleList.innerHTML = '';
+        scheduleList.classList.add('hidden');
+        scheduleList.classList.remove('flex');
+
+        filtered.forEach(payments => {
+          const listUser = document.createElement('li');
+          listUser.id = payments.id;
+          listUser.classList.add('flex', 'items-center', 'border-b-solid', 'border-b-2', 'border-b-purple-500', 'w-full', 'text-start')
+          listUser.innerHTML = `
+                       ${payments.user.name}
+                        <div class="grid ml-auto place-items-center justify-self-end">
+                          <button
+                            class="add-btn relative h-10 max-h-[40px] w-10 max-w-[40px] select-none  text-center align-middle font-sans text-xs font-medium uppercase text-blue-gray-500 transition-all hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            type="button">
+                            <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 rounded-lg text-purple-500 hover:text-white hover:bg-purple-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                              </svg>
+                              
+                            </span>
+                          </button>
+                        </div>
+          `
+          filterScheduleList.append(listUser);
+    
+          
+        });
+
+
+      };
+      
+    });
+
+   
 
 
     scheduleList.addEventListener('click', async e => {
+      if(e.target.closest(".add-btn")){
+       
+        
+        const addBtn = e.target.closest(".add-btn");
+        const userId = addBtn.parentElement.parentElement.id;
+        const list = addBtn.parentElement.parentElement;
+        const nameId = addBtn.parentElement.parentElement.textContent;
+        const cleanName = nameId.trim().split(' ');
+        const fullName = cleanName.join(' ');
+        console.log(fullName);
+        console.log(list);
+        
+       
+        
+        
+        
+
+        
+        try {
+          const newClass = {
+              date: dateNow,
+              schedule: scheduleId,
+              payments: userId,
+              name: fullName,
+              
+             }
+             console.log(newClass);
+             
+
+             const { data } = await axios.post('/api/class', newClass);
+             list.classList.add('hidden');
+             createNotification(false, data)
+             setTimeout(() => {
+             notification.innerHTML = '';
+             }, 3000);
+             
+           
+
+        } catch (error) {
+           console.log(error);
+           
+        }
+        
+      }
+    });   
+
+    filterScheduleList.addEventListener('click', async e => {
       if(e.target.closest(".add-btn")){
        
         
@@ -191,7 +301,7 @@ scheduleSection.addEventListener('click', async e => {
     });   
     
   }
-  //Aqui se ven los alumnos asignados a la clase
+ // Aqui se ven los alumnos asignados a la clase
   if(e.target.closest('.see-btn')){
     scheduleAttendance.classList.remove('hidden');
     scheduleAttendance.classList.add('flex');
