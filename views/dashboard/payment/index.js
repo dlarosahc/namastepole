@@ -139,6 +139,9 @@ filterPaymentsContent.addEventListener('click', async e => {
         data.forEach(payments => {
             const tableItem = document.createElement('tr');
             tableItem.id = payments.id
+            if(payments.classQuantity === 0) {
+                tableItem.classList.add('line-through')
+            };
             tableItem.classList.add('w-full',  'text-sd', 'text-center', 'rtl:text-right', 'text-gray-500', 'overflow-x-auto');
             tableItem.innerHTML = `
              ${userLoggedIn?.rol === 'admin'? (
