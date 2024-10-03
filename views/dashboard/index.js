@@ -140,13 +140,7 @@ const profileUser = document.querySelector('#profile');
                     
                 </div>
                 <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                        Paquete Actual
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                         ${activePayment.package.name}
-                    </dd>
-                </div>
+              
                 <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
                         Clases Disponibles
@@ -232,8 +226,12 @@ const profileUser = document.querySelector('#profile');
     
         
     } catch (error) {
-        console.log(error);
-        window.location.pathname = '/login'
+        console.error('Error al cargar el perfil:', error);
+        // Mostrar un mensaje de error al usuario
+        const errorMessage = document.createElement('div');
+        errorMessage.textContent = 'Hubo un error al cargar tu perfil. Por favor, inténtalo de nuevo más tarde.';
+        profileUser.appendChild(errorMessage);
+        //window.location.pathname = '/login'
         
     }
     
