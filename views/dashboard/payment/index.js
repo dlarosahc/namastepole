@@ -140,7 +140,7 @@ filterPaymentsContent.addEventListener('click', async e => {
             const tableItem = document.createElement('tr');
             tableItem.id = payments.id
             if(payments.classQuantity === 0) {
-                tableItem.classList.add('line-through')
+                tableItem.classList.add('line-through', 'text-red-500')
             };
             tableItem.classList.add('w-full',  'text-sd', 'text-center', 'rtl:text-right', 'text-gray-500', 'overflow-x-auto');
             tableItem.innerHTML = `
@@ -240,9 +240,10 @@ filterPaymentsContent.addEventListener('click', async e => {
             const filteredData = data.filter(payments => {
               return payments.user.name.toLowerCase().startsWith(searchTerm);
             });
-
+             console.log(filteredData);
+             
             paymentsContent.classList.add('hidden');
-
+            
             if(searchTerm === ''){
                 paymentsContent.classList.remove('hidden');
                 filterPaymentsContent.classList.add('hidden');
@@ -251,10 +252,14 @@ filterPaymentsContent.addEventListener('click', async e => {
             } else {
                 paymentsContent.classList.add('hidden');
                 filterPaymentsContent.classList.remove('hidden');
+                
                 filterPaymentsContent.innerHTML = '';
                 filteredData.forEach(payments => {
                     const tableItem = document.createElement('tr');
                     tableItem.id = payments.id
+                    if(payments.classQuantity === 0) {
+                      tableItem.classList.add('line-through', 'text-red-500')
+                    };
                     tableItem.classList.add('w-full',  'text-sd', 'text-center', 'rtl:text-right', 'text-gray-500', 'overflow-x-auto');
                     tableItem.innerHTML = `
                      ${userLoggedIn?.rol === 'admin'? (
