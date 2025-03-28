@@ -133,12 +133,16 @@ packagesList.addEventListener('click', async e => {
                 
 
                 `;
-              const response = await fetch('https://venecodollar.vercel.app/api/v2/dollar/entity?name=D%C3%B3lar%20Monitor',)
-              if (response){
-                const dollar = await response.json()
-                const dollarPrice = dollar.Data.info.dollar;
-                console.log(dollarPrice);
-                const packagePriceBs = dollarPrice * packagePrice;
+              const responseParalelo = await fetch('https://venecodollar.vercel.app/api/v2/dollar/entity?name=D%C3%B3lar%20Monitor',);
+              const responseBCV = await fetch('https://venecodollar.vercel.app/api/v2/dollar/entity?name=D%C3%B3lar%20BCV',);
+              if (responseParalelo && responseBCV){
+                const dollarParalelo = await responseParalelo.json();
+                const dollarBCV = await responseBCV.json();
+                const dollarParaleloPrice = dollarParalelo.Data.info.dollar;
+                const dollarBCVPrice = dollarBCV.Data.info.dollar;
+                const dollarPromedio = (dollarParaleloPrice + dollarBCVPrice) / 2
+                console.log(dollarPromedio);
+                const packagePriceBs = dollarPromedio * packagePrice;
                 const formattedPriceBs = packagePriceBs.toFixed(2);
                 bsAmount.innerHTML = `<p class="text-md font-bold">${formattedPriceBs}</p>`;
                 

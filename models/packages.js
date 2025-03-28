@@ -5,6 +5,10 @@ const packageSchema = new mongoose.Schema({
     description: String,
     price: Number,
     classQuantity: Number,
+    available: {
+        type: Boolean,
+        default: true
+    },
     
     });
 
