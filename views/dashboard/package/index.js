@@ -140,7 +140,7 @@ packagesList.addEventListener('click', async e => {
                 const dollarBCV = await responseBCV.json();
                 const dollarParaleloPrice = dollarParalelo.Data.info.dollar;
                 const dollarBCVPrice = dollarBCV.Data.info.dollar;
-                const dollarPromedio = (dollarParaleloPrice + dollarBCVPrice) / 2
+                const dollarPromedio = ((dollarParaleloPrice + dollarBCVPrice )  / 2) + 5;
                 console.log(dollarPromedio);
                 const packagePriceBs = dollarPromedio * packagePrice;
                 const formattedPriceBs = packagePriceBs.toFixed(2);
