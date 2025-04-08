@@ -946,7 +946,7 @@ selectScheduleSection.addEventListener('click', async e => {
     
     scheduleForm.classList.remove('hidden');
     scheduleForm.classList.add('flex');
-    inputScheduleDate.value = dateNow;
+    inputScheduleDate.value = inputDate.value;
     const formTitle = e.target.closest('.schedule-btn').parentElement.children[1];
     const formTime = e.target.closest('.schedule-btn').parentElement.children[0];
     scheduleForm.children[0].children[0].innerHTML = formTitle.innerHTML;
@@ -1117,7 +1117,7 @@ selectScheduleSection.addEventListener('click', async e => {
         
         try {
           const newClass = {
-              date: dateNow,
+              date: inputDate.value,
               schedule: scheduleId,
               payments: userId,
               name: fullName,
