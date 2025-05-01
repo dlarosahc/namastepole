@@ -192,4 +192,52 @@ usersRouter.patch('/:id/:token', async (request, response) => {
   }
 });
 
+usersRouter.post('/forgot-password', async (request, response) => {
+  const { email } = request.body;
+
+  try {
+      const user = await User.findOne({ email });
+      if (!user) {
+          return response.status(404).json({ error: 'No existe usuario con ese correo' });
+      }
+
+      // Generar token de restablecimiento
+      const resetToken = crypto.randomBytes(20).toString('hex');
+      const resetTokenExpiry = Date.now() + 3600000; // 1 hora de expiración
+
+      user.resetToken = resetToken;
+      user.resetTokenExpiry = resetTokenExpiry;
+      await user.save();
+
+      // Enviar correo electrónico
+      const transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 465,
+          secure: true,
+          auth: {
+              user: process.env.EMAIL_USER,
+              pass: process.env.EMAIL_PASS,
+          },
+      });
+
+      await transporter.sendMail({
+          from: process.env.EMAIL_USER,
+          to: user.email,
+          subject: 'Restablecer Contraseña',
+          html: `
+              <p>Hola <span class="math-inline">\{user\.name\},</p\>
+<p\>Has solicitado restablecer tu contraseña\. Haz clic en el siguiente enlace para continuar\:</p\>
+<a href\="</span>{PAGE_URL}/reset-password/<span class="math-inline">\{user\.id\}/</span>{resetToken}">Restablecer Contraseña</a>
+              <p>Este enlace expirará en 1 hora.</p>
+          `,
+      });
+
+      return response.json({ message: 'Se ha enviado un correo electrónico con instrucciones para restablecer la contraseña.' });
+
+  } catch (error) {
+      console.error(error);
+      return response.status(500).json({ error: 'Error al procesar la solicitud de restablecimiento de contraseña' });
+  }
+});
+
 module.exports = usersRouter;  

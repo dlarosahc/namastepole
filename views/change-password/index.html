@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="icon" type="image/png" href="/images/lotuslogo2.png"/>
-    <title>Iniciar Sesión</title>
+    <title>Restablecer Contraseña</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link   
@@ -24,9 +24,7 @@
     <div>
     <div class="pt-16 h-screen flex flex-col  max-w-7xl mx-auto  justify-center gap-4 items-center px-4">
         
-        <div class="">
-          <img class="md:w-96 md:h-80"    src="/images/mainlogo.png" alt="Logo Namaste"> 
-        </div>
+<h1 class="text-center">Para restablecer su contraseña, por favor indiquenos su correo eléctronico</h1>
         <form id="form" class="flex flex-col  gap-4 bg-slate-200 p-4 w-full md:w-2/4 rounded-lg text-md shadow-lg">   
            
            <div class="flex flex-col gap-2">
@@ -35,29 +33,21 @@
                <p class="text-xs"></p>
            </div>
            
-           <div class="flex flex-col gap-2">
-               <label for="password-input" class="font-bold">Contraseña</label>
-               <input type="password" id="password-input" name="password" placeholder="Ingresa una Contraseña" class="rounded-lg p2 bg-slate-100 focus:outline-none outline-green-700">
-               <p id="error-text" class="text-sm text-red-700"></p>
-           </div> 
+          
 
-           <button id="form-btn" class="py-2 px-4 bg-violet-400 rounded-lg font-bold text-white hover:border-transparent  hover:bg-white hover:text-violet-400">Iniciar Sesión</button>
-           <!-- <div class="flex text-xs gap-2 justify-center items-center flex-row">
-            <p>Olvidó su contraseña?</p>
-            <a href="/change-password/" class="underline hover:text-violet-400 hover:underline">Restablecer Contraseña</a>
-        </div>  -->
+           <button id="form-btn" class="py-2 px-4 bg-violet-400 rounded-lg font-bold text-white hover:border-transparent  hover:bg-white hover:text-violet-400">Continuar</button>
+           
         </form>
-        <footer class="bg-white flex justify-center items-center rounded-lg  m-4">
+        <!-- <footer class="bg-white flex justify-center items-center rounded-lg  m-4">
             <div class="w-full flex  justify-center items-center max-w-screen-xl mx-auto p-4">
               
                 
                 <span class=" text-sm text-gray-500 text-center"> © 2024 Desarrollado por: Darwin La Rosa. Todos los derechos reservados.</span>
             </div>
-        </footer>
+        </footer> -->
    </div>
-   
-  
-    <script src="index.js"></script>
-    <script src="../components/nav.js"></script>  
+
+   <script src="index.js"></script>
+   <script src="../components/nav.js"></script>  
 </body>
 </html>

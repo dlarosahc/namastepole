@@ -39,6 +39,7 @@ app.use('/prices', express.static(path.resolve('views', 'prices')));
 app.use('/signup', express.static(path.resolve('views', 'signup')));
 app.use('/login', express.static(path.resolve('views', 'login')));
 app.use('/components', express.static(path.resolve('views', 'components')));
+app.use('/change-password', express.static(path.resolve('views', 'change-password')));
 app.use('/images', express.static(path.resolve('img')));
 app.use('/verify/:id/:token', express.static(path.resolve('views', 'verify')));
 app.use('/dashboard', express.static(path.resolve('views', 'dashboard')));
