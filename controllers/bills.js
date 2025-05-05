@@ -6,23 +6,25 @@ const User = require('../models/users');
 billsRouter.post('/', async (request, response) => {
     
    try {
-    const { date, user } = request.body; 
-    if (!date || !user ){
+    const { date, user, discipline, time } = request.body; 
+    if (!date || !user || !discipline || !time ){
       return response.status(400).json({ error: 'Todos los datos son requeridos' });
   } 
    
     const newBill = new Bill ({
        date,
-       coach,
+       user,
+       discipline,
+       time,
        
        
     });
    
     
     const savedBill = await newBill.save();
-    const coachToUpdate = await Coach.findById(coach);
-    coachToUpdate.bills = coachToUpdate.bills.concat(savedBill._id)
-    await coachToUpdate.save();
+    const userToUpdate = await User.findById(user);
+    userToUpdate.bills = userToUpdate.bills.concat(savedBill._id)
+    await userToUpdate.save();
    
     return response.status(201).json('Clase Registrada con éxito');
    } catch (error) {
@@ -36,7 +38,7 @@ billsRouter.get('/', async (request, response) => {
 
     try {
         // Find all packages using Package.find()
-        const bills = await Bill.find().populate('coach');
+        const bills = await Bill.find().populate('user');
     
         // Check if any packages were found
         if (!bills.length) {
@@ -54,17 +56,17 @@ billsRouter.get('/', async (request, response) => {
    
 });
 
-billsRouter.patch("/:id/paid", async (request, response) => {
-  const user = request.user;
+// billsRouter.patch("/:id/paid", async (request, response) => {
+//   const user = request.user;
   
-  const { paid } = request.body;
+//   const { paid } = request.body;
   
-  await Bill.findByIdAndUpdate(request.params.id, { paid });
+//   await Bill.findByIdAndUpdate(request.params.id, { paid });
   
  
   
-  return response.sendStatus(200);
-});
+//   return response.sendStatus(200);
+// });
 
 
 

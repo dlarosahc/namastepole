@@ -1,6 +1,199 @@
+import { createNotification } from "../../components/notification.js";
+
 const profileUser = document.querySelector('#profile');
+const userTitle = document.querySelector('#user-title');
+const adminTitle = document.querySelector('#admin-title');
+const dateInput = document.querySelector('#date-input');
+const coachInput = document.querySelector('#coach-input');
+const disciplineInput = document.querySelector('#discipline-input');
+const timeInput = document.querySelector('#time-input');
+const form = document.querySelector('#form');
+const classesTable = document.querySelector('#classes-table');
+const classesContent = document.querySelector('#classes-content');
+const classesDiv = document.querySelector('#classes-div');
+let userLoggedIn = null;
+
 
 (async () => {
+    const {data } = await axios.get('/api/users/logged');
+    userLoggedIn = data;
+
+    
+    
+    
+
+    if (userLoggedIn.rol === 'client') {
+      
+      userTitle.classList.remove('hidden');
+    //   form.classList.add('hidden');
+    //   form.classList.remove('flex');
+    //   coachesDiv.classList.add('hidden');
+    //   coachesDiv.classList.remove('flex');
+    //   classesDiv.classList.add('hidden');
+    //   classesDiv.classList.remove('flex');
+    };
+
+    if (userLoggedIn.rol === 'admin') {
+        
+       
+        adminTitle.classList.remove('hidden');
+        form.classList.add('flex');
+        form.classList.remove('hidden');
+        classesDiv.classList.add('flex');
+        classesDiv.classList.remove('hidden');
+        
+      };
+
+})();
+
+
+let loadedCoaches = false;
+coachInput.addEventListener('click', async e => {
+    
+   if(!loadedCoaches) {
+    try {
+        coachInput.innerHTML = '';
+        const { data } = await axios.get('/api/users',  {
+            withCredentials: true
+        });
+        
+        const coaches = data.filter(({ coach }) => coach === true );
+        console.log(coaches);
+        
+
+        coaches.forEach(coach => {
+            const optionItem = document.createElement('option');
+            optionItem.value = coach.id; // Asumo que cada objeto 'coach' tiene una propiedad 'name'
+            optionItem.textContent = coach.name; // Usamos textContent para asignar el texto
+
+            coachInput.appendChild(optionItem); // Agregamos la opción al coachInput (el select)
+
+        });
+   
+        loadedCoaches = true;
+        
+    } catch (error) {
+        console.log(error);
+        
+    };
+};
+    
+});
+
+form.addEventListener('submit', async e => {
+    e.preventDefault();
+    try {
+        const newBill = {
+            date: dateInput.value,
+            user: coachInput.value,
+            discipline: disciplineInput.value,
+            time: timeInput.value,
+
+        }
+
+        
+        const { data } = await axios.post('/api/bills', newBill);
+        dateInput.value = '';
+        coachInput.value = '';
+        disciplineInput.value = '';
+        timeInput.value = '';
+        loadedCoaches = false;
+        
+        
+        createNotification(false, data)
+        setTimeout(() => {
+            notification.innerHTML = '';
+        }, 3000);
+       
+        
+     
+    } catch (error) {
+        console.log(error);
+        
+    }
+   
+   
+});
+
+(async () => {
+    try {
+        const { data } = await axios.get('/api/bills', {
+            withCredentials: true
+        });
+        
+        data.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        data.forEach(bills => {
+            const tableItem = document.createElement('tr');
+            tableItem.id = bills.id
+            
+            tableItem.classList.add('w-full',  'text-sd', 'text-center', 'rtl:text-right', 'text-gray-500', 'overflow-x-auto');
+            tableItem.innerHTML = `
+             <tr class="bg-white border-b">
+             <td class="px-6 py-4">
+                    ${bills.date}
+                </td>
+                <td class="px-6 py-4">
+                    ${bills.user.name}
+                </td>
+                 <td class="px-6 py-4">
+                    ${bills.discipline}
+                </td>
+                <td class="px-6 py-4">
+                    ${bills.time}
+                </td>
+                 <td scope="row" class="flex justify-center px-6 py-4  font-medium  whitespace-nowrap">
+                    <button class="paid-btn">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-red-500 size-8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+
+                    </button> 
+                </td>
+                
+            </tr>
+             
+            `;
+        //  if(userLoggedIn.rol === 'admin'){
+        //    if(payments.approved){
+        //     tableItem.children[8].children[0].innerHTML = `
+        //     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-green-500 size-8">
+        //     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        //     </svg>
+        //     `;
+        //     } else {
+        //         tableItem.children[8].children[0].innerHTML = `
+        //              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-red-500 size-8">
+        //              <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        //              </svg>
+        //         `;   
+        //     };
+            
+            
+            
+        // };
+            
+            classesContent.append(tableItem);
+        });
+    
+        
+    } catch (error) {
+        console.log(error);
+        // window.location.pathname = '/login'
+        
+    };
+
+     
+    
+    })();
+
+(async () => {
+    const {data } = await axios.get('/api/users/logged');
+    userLoggedIn = data;
+   
+    
+
+if (userLoggedIn.rol === 'client'){ 
     try {
         const { data } = await axios.get('/api/profile',  {
             withCredentials: true
@@ -234,7 +427,7 @@ const profileUser = document.querySelector('#profile');
         //window.location.pathname = '/login'
         
     }
-    
+}
     })();
 
  

@@ -6,6 +6,9 @@ const billSchema = new mongoose.Schema({
    
 
     date: String,
+    discipline: String,
+    time: String,
+
 
     
 
@@ -18,6 +21,8 @@ const billSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
       },
+
+     
 
      
       

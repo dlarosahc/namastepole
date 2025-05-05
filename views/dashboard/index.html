@@ -21,14 +21,114 @@
 </head>
 <body>
     <div id="side-bar"> </div> 
+    <div id="notification" class="fixed top-20 left-0 right-0"></div>
     
     <div id="profile" class="p-4 md:ml-64 h-screen gap-4 flex flex-col max-w-7xl mx-auto  items-center px-6">
-        <h2 id="day-title" class="text-2xl lg:text-4xl font-extrabold leading-tight tracking-tight text-gray-900">
-            Bienvenid@ a tu cuenta!
-            </h2>
+      <h2 id="user-title" class="hidden text-2xl lg:text-4xl font-extrabold leading-tight tracking-tight text-gray-900">
+        Bienvenid@ a tu cuenta!
+    </h2>
+    <h2 id="admin-title" class="hidden text-2xl lg:text-4xl font-extrabold leading-tight tracking-tight text-gray-900">
+        Bienvenid@ Administrador!
+    </h2>
+
+    <form id="form" class="hidden  flex-col w-full md:w-2/4  gap-4  p-4 rounded-lg text-md shadow-lg">
+      <div>
+        <h4 id="admin-title" class="text-xl flex justify-center items-center lg:text-xl font-extrabold leading-tight tracking-tight text-gray-900">
+            Agregar Clase
+        </h4>
+      </div>
+        <div class="flex flex-col gap-2">
+        <label for="name-input" class="font-bold">Fecha</label>
+        <input type="date" id="date-input" name="name-input"  class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1 ">
+        <p class="hidden text-xs">Nombre y Apellido deben estar con la primera letra en mayuscula</p>
+        </div>  
+        <div class="flex flex-col gap-2">
+          <label for="discipline" class="font-bold">Instructor</label>
+          <select id="coach-input"  class='"bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1 ' name="discipline" id="select-discipline">
+              <option selected disabled value=""></option>
+              <!-- <option value="Cermarys Vasquez">Cermarys Vasquez</option> -->
+              
+          </select>
+      </div>  
+        <div class="flex flex-col gap-2">
+          <label for="discipline" class="font-bold">Disciplina</label>
+          <select id="discipline-input"  class='"bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1 ' name="discipline" id="select-discipline">
+              <option selected disabled value=""></option>
+              <option value="Pilates">Pilates</option>
+              <option value="Aeropilates">Aeropilates</option>
+              <option value="Pole Fitness">Pole Fitness</option>
+              <option value="Pole Coreográfico">Pole Coreográfico</option>
+              <option value="Pole Exotic">Pole Exotic</option>
+              <option value="Telas Acrobáticas">Telas Acrobáticas</option>
+              <option value="Lyra Hoop">Lyra Hoop</option>
+              <option value="Lyra Hoop">Twerking</option>
+              <option value="Lyra Hoop">Stretching</option>
+          </select>
+      </div> 
+      <div class="flex flex-col gap-2">
+        <label for="discipline" class="font-bold">Hora</label>
+        <select id="time-input" class='"bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1 ' name="discipline" id="select-discipline">
+          <option selected disabled value=""></option>
+          <option value="08:00am.">08:00am.</option>
+          <option value="90:00am.">09:00am.</option>
+          <option value="10:00am.">10:00am.</option>
+          <option value="11:00am.">11:00am.</option>
+          <option value="03:00pm.">03:00pm.</option>
+          <option value="04:00pm.">04:00pm.</option>
+          <option value="05:00pm.">05:00pm.</option>
+          <option value="06:00pm">06:00pm.</option>
+          <option value="07:00pm">07:00pm.</option>
+        </select>
+    </div> 
+        
+       
+        <button  id="form-btn" class=" disabled:opacity-50 disabled:cursor-not-allowed py-2 px-4 bg-violet-400 rounded-lg font-bold text-white hover:border-transparent hover:text-teal-500 hover:bg-white">Agregar</button>
+     </form>
+
+     <div id="classes-div" class="h-96 overflow-auto hidden flex-col ">
+      <h2 id="" class=" text-xl text-center lg:text-2xl font-extrabold leading-tight tracking-tight text-gray-900">
+          Registro de Clases
+      </h2>
+      <table id="classes-table" class=" overflow-x-auto w-full  text-sm text-center rtl:text-right text-gray-500">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+              <tr>
+                 
+                  <th scope="col" class="px-6 py-3">
+                      Fecha
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                      Instructor
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Disciplina
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Hora
+              </th>
+                  <th scope="col" class="px-6 py-3">
+                      Pagada
+                  </th>
+                 
+                 
+                 
+              </tr>
+          </thead>
+          <tbody id="classes-content">
+  
+          
+          </tbody>
+          <tbody id="filter-payments-content" class="hidden">
+  
+          
+          </tbody>
+          
+      </table>
+  </div>
+
    </div>
 
   <script src="../components/sidebar.js"></script>
+  <script type="module" src="/components/notification.js"></script> 
   <script type="module" src="index.js"></script>
 </body>
 </html>
