@@ -16,6 +16,7 @@ const scheduleRouter = require('./controllers/schedule');
 const classRouter = require('./controllers/class');
 const logoutRouter = require('./controllers/logout');
 const { MONGO_URI } = require('./config');
+const billsRouter = require('./controllers/bills');
 
 
 (async() => {
@@ -59,6 +60,7 @@ app.use('/api/payments', userExtractor ,paymentsRouter);
 app.use('/api/profile', userExtractor ,profileRouter);
 app.use('/api/schedule', userExtractor , scheduleRouter);
 app.use('/api/class', userExtractor , classRouter);
+app.use('/api/bills', userExtractor, billsRouter);
 
 
 module.exports = app;

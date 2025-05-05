@@ -25,6 +25,13 @@ const userSchema = new mongoose.Schema({
         default: false,
     },
 
+    coach: {
+        type: Boolean,
+        default: false,
+    },
+
+
+
     
     
       payments: [{
@@ -32,7 +39,10 @@ const userSchema = new mongoose.Schema({
         ref: 'Payment',
       }],
 
-      
+        bills: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Bill',
+      }],
 
     
 });
