@@ -56,17 +56,17 @@ billsRouter.get('/', async (request, response) => {
    
 });
 
-// billsRouter.patch("/:id/paid", async (request, response) => {
-//   const user = request.user;
+billsRouter.patch("/:id/paid", async (request, response) => {
+  const user = request.user;
   
-//   const { paid } = request.body;
+  const { paid } = request.body;
   
-//   await Bill.findByIdAndUpdate(request.params.id, { paid });
+  await Bill.findByIdAndUpdate(request.params.id, { paid });
   
  
   
-//   return response.sendStatus(200);
-// });
+  return response.sendStatus(200);
+});
 
 
 

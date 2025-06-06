@@ -116,6 +116,7 @@ form.addEventListener('submit', async e => {
 });
 
 (async () => {
+    
     try {
         const { data } = await axios.get('/api/bills', {
             withCredentials: true
@@ -154,24 +155,24 @@ form.addEventListener('submit', async e => {
             </tr>
              
             `;
-        //  if(userLoggedIn.rol === 'admin'){
-        //    if(payments.approved){
-        //     tableItem.children[8].children[0].innerHTML = `
-        //     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-green-500 size-8">
-        //     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        //     </svg>
-        //     `;
-        //     } else {
-        //         tableItem.children[8].children[0].innerHTML = `
-        //              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-red-500 size-8">
-        //              <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        //              </svg>
-        //         `;   
-        //     };
+         if(userLoggedIn.rol === 'admin'){
+           if(bills.paid){
+            tableItem.children[4].children[0].innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-green-500 size-8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            `;
+            } else {
+                tableItem.children[4].children[0].innerHTML = `
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-red-500 size-8">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                     </svg>
+                `;   
+            };
             
             
             
-        // };
+        };
             
             classesContent.append(tableItem);
         });
@@ -186,6 +187,29 @@ form.addEventListener('submit', async e => {
      
     
     })();
+
+
+classesContent.addEventListener('click', async e => {
+
+if(e.target.closest('.paid-btn')){
+    const paidBtn = e.target.closest('.paid-btn');
+    const tableItem = paidBtn.parentElement.parentElement;
+    
+    const paidIcon = paidBtn.children[0];
+    if (!tableItem.classList.contains('paid')){
+     await axios.patch(`/api/bills/${tableItem.id}/paid`, { paid: true });
+     paidIcon.innerHTML = `
+     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-green-500 size-8">
+     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+     </svg>
+     `;
+     tableItem.classList.add('approved');
+     }
+    
+    
+}
+
+});
 
 (async () => {
     const {data } = await axios.get('/api/users/logged');
