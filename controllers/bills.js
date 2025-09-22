@@ -38,7 +38,11 @@ billsRouter.get('/', async (request, response) => {
 
     try {
         // Find all packages using Package.find()
-        const bills = await Bill.find().populate('user');
+        // const bills = await Bill.find().populate('user');
+        const bills = request.user.rol === 'admin'
+        ? await Bill.find().populate('user')
+        : await Bill.find({ user: request.user.id }).populate('user')
+   
     
         // Check if any packages were found
         if (!bills.length) {

@@ -29,8 +29,8 @@ let userLoggedIn = null;
     //   form.classList.remove('flex');
     //   coachesDiv.classList.add('hidden');
     //   coachesDiv.classList.remove('flex');
-    //   classesDiv.classList.add('hidden');
-    //   classesDiv.classList.remove('flex');
+    //   classesDiv.classList.add('flex');
+    //   classesDiv.classList.remove('hidden');
     };
 
     if (userLoggedIn.rol === 'admin') {

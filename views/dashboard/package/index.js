@@ -133,7 +133,8 @@ packagesList.addEventListener('click', async e => {
                 
 
                 `;
-              const response = await fetch('https://ve.dolarapi.com/v1/dolares/paralelo');
+              const response = await fetch('https://api.dolarvzla.com/public/exchange-rate');
+              
               
               
               
@@ -141,10 +142,10 @@ packagesList.addEventListener('click', async e => {
 
               if (response){
                 const dollarInfo = await response.json();
-                const dollarPrice = dollarInfo.promedio;
-                const dollarPromedio = dollarPrice - 15;
-                console.log(dollarPromedio);
-                const packagePriceBs = dollarPromedio * packagePrice;
+                console.log(dollarInfo);
+                const dollarPrice = dollarInfo.current.eur;
+                console.log(dollarPrice);
+                const packagePriceBs = dollarPrice * packagePrice;
                 const formattedPriceBs = packagePriceBs.toFixed(2);
                 bsAmount.innerHTML = `<p class="text-md font-bold">${formattedPriceBs}</p>`;
                 
