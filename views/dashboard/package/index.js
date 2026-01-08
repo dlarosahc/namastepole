@@ -143,7 +143,7 @@ packagesList.addEventListener('click', async e => {
               if (response){
                 const dollarInfo = await response.json();
                 console.log(dollarInfo);
-                const dollarPrice = dollarInfo.current.eur + 15;
+                const dollarPrice = dollarInfo.current.eur + 35;
                 console.log(dollarPrice);
                 const packagePriceBs = (dollarPrice * packagePrice);
                 const formattedPriceBs = packagePriceBs.toFixed(2);
